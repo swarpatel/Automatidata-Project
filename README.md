@@ -36,11 +36,15 @@ The team is still in the early stages of the project. Previously, you were asked
 
 # **PACE stages**
 
+</br></br></br>
+
 
 <img src="images/Plan.png" width="100" height="100" align=left>
 
 
 ## PACE: **Plan**
+
+</br></br></br>
 
 ### **Task 1. Understand the situation**
 
