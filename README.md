@@ -1171,8 +1171,5 @@ credit_card_payments.groupby(['passenger_count']).mean(numeric_only=True)[['tip_
 
 ### **Given your efforts, what can you summarize for DeShawn and the data team?**
 
-*Note for Learners: Your notebook should contain data that can address Luana's requests. Which two variables are most helpful for building a predictive model for the client: NYC TLC?*
-
 After examining the dataset, it's clear that the two variables most useful for creating a predictive model for taxi ride fares are total_amount and trip_distance. These variables provide a comprehensive view of a taxi cab ride.
 
-**Congratulations!** You've completed this lab. However, you may not notice a green check mark next to this item on Coursera's platform. Please continue your progress regardless of the check mark. Just click on the "save" icon at the top of this notebook to ensure your work has been logged.
