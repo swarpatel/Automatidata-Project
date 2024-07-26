@@ -1172,5 +1172,5 @@ credit_card_payments.groupby(['passenger_count']).mean(numeric_only=True)[['tip_
 
 ### **Given your efforts, what can you summarize for DeShawn and the data team?**
 
-`After examining the dataset, it's clear that the two variables most useful for creating a predictive model for taxi ride fares are total_amount and trip_distance. These variables provide a comprehensive view of a taxi cab ride.`
+* After examining the dataset, it's clear that the two variables most useful for creating a predictive model for taxi ride fares are total_amount and trip_distance. These variables provide a comprehensive view of a taxi cab ride.
 
