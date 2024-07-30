@@ -2,6 +2,8 @@
 
 Welcome to the Automatidata Project!
 
+#### Case Study:
+
 You have just started as a data professional in a fictional data consulting firm, Automatidata. Their client, the New York City Taxi and Limousine Commission (New York City TLC), has hired the Automatidata team for its reputation in helping their clients develop data-based solutions.
 
 The team is still in the early stages of the project. Previously, you were asked to complete a project proposal by your supervisor, DeShawn Washington. You have received notice that your project proposal has been approved and that New York City TLC has given the Automatidata team access to their data. To get clear insights, New York TLC's data must be analyzed, key variables identified, and the dataset ensured it is ready for analysis.
@@ -32,21 +34,7 @@ The team is still in the early stages of the project. Previously, you were asked
 # **Identify data types and relevant variables using Python**
 
 
-<img src="images/Pace.png" width="100" height="100" align=left>
-
-# **PACE stages**
-
-</br></br></br>
-
-
-<img src="images/Plan.png" width="100" height="100" align=left>
-
-
-## PACE: **Plan**
-
-</br></br></br>
-
-### **Task 1. Understand the situation**
+### **Understand the situation**
 
 #### How can you best prepare to understand and organize the provided taxi cab information? 
 
@@ -73,26 +61,7 @@ The team is still in the early stages of the project. Previously, you were asked
 
     Dataset scrubbed for exploratory data analysis, visualizations, statistical model, regression analysis and/or machine learning model.
 
-<img src="images/Analyze.png" width="100" height="100" align=left>
-
-## PACE: **Analyze**
-
-### **Task 2a. Build dataframe**
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+### **Build dataframe**
 
 Create a pandas dataframe for data learning, and future exploratory data analysis (EDA) and statistical activities.
 
@@ -110,7 +79,7 @@ print("done")
     done
     
 
-### **Task 2b. Understand the data - Inspect the data**
+### *Understand the data - Inspect the data**
 
 Consider the following two questions:
 
@@ -620,7 +589,7 @@ Potential Issues:
 
 </br>
 
-### **Task 2c. Understand the data - Investigate the variables**
+### **Understand the data - Investigate the variables**
 
 Sort and interpret the data table for two variables:`trip_distance` and `total_amount`.
 
@@ -1155,22 +1124,4 @@ credit_card_payments.groupby(['passenger_count']).mean(numeric_only=True)[['tip_
 
 
 
-<img src="images/Construct.png" width="100" height="100" align=left>
-
-## PACE: **Construct**
-
-**Note**: The Construct stage does not apply to this workflow. The PACE framework can be adapted to fit the specific requirements of any project. 
-
-
-
-
-<img src="images/Execute.png" width="100" height="100" align=left>
-
-## PACE: **Execute**
-
-</br>
-
-### **Given your efforts, what can you summarize for DeShawn and the data team?**
-
-* After examining the dataset, it's clear that the two variables most useful for creating a predictive model for taxi ride fares are total_amount and trip_distance. These variables provide a comprehensive view of a taxi cab ride.
-
+`After examining the dataset, it's clear that the two variables most useful for creating a predictive model for taxi ride fares are total_amount and trip_distance. These variables provide a comprehensive view of a taxi cab ride.`
