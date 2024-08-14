@@ -1350,7 +1350,7 @@ mean_tips_by_passenger_count
 ```python
 # Create bar plot for mean tips by passenger count
 data = mean_tips_by_passenger_count[1:]
-pal = sns.color_palette("Greens_d", len(data))
+pal = sns.color_palette("Blues_d", len(data))
 rank = data.argsort().argsort()
 plt.figure(figsize=(12,7))
 ax = sns.barplot(x=data.index,
