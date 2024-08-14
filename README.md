@@ -1227,7 +1227,7 @@ sns.boxplot(data=None, x=df['trip_distance'], fliersize=1);
 
 
     
-![png](output_31_0.png)
+![png](img/output_31_0.png)
     
 
 
@@ -1241,7 +1241,7 @@ plt.title('Trip distance histogram');
 
 
     
-![png](output_32_0.png)
+![png](img/output_32_0.png)
     
 
 
@@ -1260,7 +1260,7 @@ sns.boxplot(x=df['total_amount'], fliersize=1);
 
 
     
-![png](output_35_0.png)
+![png](img/output_35_0.png)
     
 
 
@@ -1276,7 +1276,7 @@ plt.title('Total amount histogram');
 
 
     
-![png](output_36_0.png)
+![png](img/output_36_0.png)
     
 
 
@@ -1295,7 +1295,7 @@ sns.boxplot(x=df['tip_amount'], fliersize=1);
 
 
     
-![png](output_39_0.png)
+![png](img/output_39_0.png)
     
 
 
@@ -1311,7 +1311,7 @@ plt.title('Tip amount histogram');
 
 
     
-![png](output_40_0.png)
+![png](img/output_40_0.png)
     
 
 
@@ -1335,7 +1335,7 @@ plt.title('Tip amount by vendor histogram');
 
 
     
-![png](output_43_0.png)
+![png](img/output_43_0.png)
     
 
 
@@ -1359,7 +1359,7 @@ plt.title('Tip amount by vendor histogram');
 
 
     
-![png](output_46_0.png)
+![png](img/output_46_0.png)
     
 
 
@@ -1428,7 +1428,7 @@ plt.title('Mean tip amount by passenger count', fontsize=16);
 
 
     
-![png](output_52_0.png)
+![png](img/output_52_0.png)
     
 
 
@@ -1515,7 +1515,7 @@ plt.title('Ride count by month', fontsize=16);
 
 
     
-![png](output_59_0.png)
+![png](img/output_59_0.png)
     
 
 
@@ -1559,7 +1559,7 @@ plt.title('Ride count by day', fontsize=16);
 
 
     
-![png](output_63_0.png)
+![png](img/output_63_0.png)
     
 
 
@@ -1603,7 +1603,7 @@ plt.title('Total revenue by day', fontsize=16);
 
 
     
-![png](output_67_0.png)
+![png](img/output_67_0.png)
     
 
 
@@ -1649,7 +1649,7 @@ plt.title('Total revenue by month', fontsize=16);
 
 
     
-![png](output_71_0.png)
+![png](img/output_71_0.png)
     
 
 
@@ -1783,7 +1783,7 @@ plt.title('Mean trip distance by drop-off location', fontsize=16);
 
 
     
-![png](output_76_0.png)
+![png](img/output_76_0.png)
     
 
 
@@ -1823,7 +1823,7 @@ ax.set_title('Mean distance between points taken randomly from normal distributi
 
 
     
-![png](output_78_0.png)
+![png](img/output_78_0.png)
     
 
 
@@ -1862,7 +1862,7 @@ plt.title('Histogram of rides by drop-off location', fontsize=16);
 
 
     
-![png](output_83_0.png)
+![png](img/output_83_0.png)
     
 
 
