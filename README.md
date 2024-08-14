@@ -1270,7 +1270,7 @@ plt.title('Tip amount by vendor histogram');
 
 
     
-![png](img/output_43_0.png?)
+![png](img/output_43_0.png)
     
 
 
@@ -1294,7 +1294,7 @@ plt.title('Tip amount by vendor histogram');
 
 
     
-![png](img/output_46_0.png?)
+![png](img/output_46_0.png)
     
 
 
@@ -1363,7 +1363,7 @@ plt.title('Mean tip amount by passenger count', fontsize=16);
 
 
     
-![png](img/output_52_0.png?)
+![png](img/output_52_0.png)
     
 
 
