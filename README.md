@@ -71,6 +71,15 @@ Create a pandas dataframe for data learning, and future exploratory data analysi
 import numpy as np
 import pandas as pd
 
+import matplotlib.pyplot as plt
+import seaborn as sns 
+import plotly.express as px
+
+import datetime as dt
+
+import warnings
+warnings.filterwarnings('ignore')
+
 # Load dataset into dataframe
 df = pd.read_csv('2017_Yellow_Taxi_Trip_Data.csv')
 print("done")
@@ -96,6 +105,19 @@ df.head(10)
 
 
 <div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -378,6 +400,19 @@ df.describe()
 
 
 <div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -613,6 +648,19 @@ df_sorted_trip_distance.head(10)
 
 
 <div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -902,22 +950,22 @@ df_sorted_total_amount.tail(20)
     14283      0.31
     19067      0.30
     10506      0.00
+    5722       0.00
     4402       0.00
     22566      0.00
-    5722       0.00
     1646      -3.30
-    314       -3.80
     18565     -3.80
+    314       -3.80
     5758      -3.80
-    10281     -4.30
     5448      -4.30
     4423      -4.30
+    10281     -4.30
     8204      -4.80
     20317     -4.80
     11204     -5.30
     14714     -5.30
-    20698     -5.80
     17602     -5.80
+    20698     -5.80
     12944   -120.30
     Name: total_amount, dtype: float64
 
@@ -1017,6 +1065,19 @@ df.groupby(['VendorID']).mean(numeric_only=True)[['total_amount']]
 
 
 <div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -1078,6 +1139,19 @@ credit_card_payments.groupby(['passenger_count']).mean(numeric_only=True)[['tip_
 
 
 <div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -1125,3 +1199,671 @@ credit_card_payments.groupby(['passenger_count']).mean(numeric_only=True)[['tip_
 
 
 `After examining the dataset, it's clear that the two variables most useful for creating a predictive model for taxi ride fares are total_amount and trip_distance. These variables provide a comprehensive view of a taxi cab ride.`
+
+## Case Study
+
+As a data professional in a fictional data consulting firm: Automatidata. The team is still early into the project, having only just completed an initial plan of action and some early Python coding work. 
+
+Luana Rodriquez, the senior data analyst at Automatidata, is pleased with the work you have already completed and requests your assistance with some EDA and data visualization work for the New York City Taxi and Limousine Commission project (New York City TLC) to get a general understanding of what taxi ridership looks like. The management team is asking for a Python notebook showing data structuring and cleaning, as well as any matplotlib/seaborn visualizations plotted to help understand the data. At the very least, include a box plot of the ride durations and some time series plots, like a breakdown by quarter or month. 
+
+### Visualize a story using Python
+
+
+```python
+# Convert data columns to datetime
+df['tpep_pickup_datetime']=pd.to_datetime(df['tpep_pickup_datetime'])
+df['tpep_dropoff_datetime']=pd.to_datetime(df['tpep_dropoff_datetime'])
+```
+
+**trip_distance**
+
+
+```python
+# Create box plot of trip_distance
+plt.figure(figsize=(7,2))
+plt.title('trip_distance')
+sns.boxplot(data=None, x=df['trip_distance'], fliersize=1);
+```
+
+
+    
+![png](output_31_0.png)
+    
+
+
+
+```python
+# Create histogram of trip_distance
+plt.figure(figsize=(10,5))
+sns.histplot(df['trip_distance'], bins=range(0,26,1))
+plt.title('Trip distance histogram');
+```
+
+
+    
+![png](output_32_0.png)
+    
+
+
+* The box plot shows that the majority of trip distances are concentrated below 7 miles, with several outliers extending up to around 35 miles. 
+* The histogram further confirms this, illustrating a right-skewed distribution where most trips are short, with a sharp decline in frequency as trip distance increases.
+
+**total_amount**
+
+
+```python
+# Create box plot of total_amount
+plt.figure(figsize=(7,2))
+plt.title('total_amount')
+sns.boxplot(x=df['total_amount'], fliersize=1);
+```
+
+
+    
+![png](output_35_0.png)
+    
+
+
+
+```python
+# Create histogram of total_amount
+plt.figure(figsize=(12,6))
+ax = sns.histplot(df['total_amount'], bins=range(-10,101,5))
+ax.set_xticks(range(-10,101,5))
+ax.set_xticklabels(range(-10,101,5))
+plt.title('Total amount histogram');
+```
+
+
+    
+![png](output_36_0.png)
+    
+
+
+* The box plot shows that most total amounts are concentrated below $50, with a few extreme outliers reaching up to approximately $1,200. 
+* The histogram indicates a right-skewed distribution, where the majority of transactions fall between $0 and $20, with a sharp decline in frequency as the total amount increases.
+
+**tip_amount**
+
+
+```python
+# Create box plot of tip_amount
+plt.figure(figsize=(7,2))
+plt.title('tip_amount')
+sns.boxplot(x=df['tip_amount'], fliersize=1);
+```
+
+
+    
+![png](output_39_0.png)
+    
+
+
+
+```python
+# Create histogram of tip_amount
+plt.figure(figsize=(12,6))
+ax = sns.histplot(df['tip_amount'], bins=range(0,21,1))
+ax.set_xticks(range(0,21,2))
+ax.set_xticklabels(range(0,21,2))
+plt.title('Tip amount histogram');
+```
+
+
+    
+![png](output_40_0.png)
+    
+
+
+* The box plot reveals that most tips are small, with the majority of values clustered below $10 and a few significant outliers reaching nearly $200. 
+* The histogram shows a right-skewed distribution, where most tips are concentrated between $0 and $5, with a steep decline in frequency as the tip amount increases.
+
+**tip_amount by vendor**
+
+
+```python
+# Create histogram of tip_amount by vendor
+plt.figure(figsize=(12,7))
+ax = sns.histplot(data=df, x='tip_amount', bins=range(0,21,1), 
+                  hue='VendorID', 
+                  multiple='stack',
+                  palette='pastel')
+ax.set_xticks(range(0,21,1))
+ax.set_xticklabels(range(0,21,1))
+plt.title('Tip amount by vendor histogram');
+```
+
+
+    
+![png](output_43_0.png)
+    
+
+
+* The histogram illustrates the distribution of tip amounts by vendor, showing that Vendor 1 generally processes more transactions with tips across all ranges compared to Vendor 2. Both vendors exhibit a similar right-skewed distribution, with most tips falling between $0 and $5, and very few transactions involving higher tip amounts.
+
+
+
+
+```python
+# Create histogram of tip_amount by vendor for tips > $10 
+tips_over_ten = df[df['tip_amount'] > 10]
+plt.figure(figsize=(12,7))
+ax = sns.histplot(data=tips_over_ten, x='tip_amount', bins=range(10,21,1), 
+                  hue='VendorID', 
+                  multiple='stack',
+                  palette='pastel')
+ax.set_xticks(range(10,21,1))
+ax.set_xticklabels(range(10,21,1))
+plt.title('Tip amount by vendor histogram');
+```
+
+
+    
+![png](output_46_0.png)
+    
+
+
+* The histogram shows that both vendors have a similar distribution of tip amounts between $10 and $20, with Vendor 2 handling slightly more transactions in this range. Vendor 1 generally processes higher counts of tips at the lower end of this range, particularly at the $11 mark, where Vendor 1 significantly exceeds Vendor 2 in transaction count.
+
+**Mean tips by passenger count**
+
+
+```python
+df['passenger_count'].value_counts()
+```
+
+
+
+
+    passenger_count
+    1    16117
+    2     3305
+    5     1143
+    3      953
+    6      693
+    4      455
+    0       33
+    Name: count, dtype: int64
+
+
+
+Nearly two thirds of the rides were single occupancy, though there were still nearly 700 rides with as many as six passengers. Also, there are 33 rides with an occupancy count of zero, which doesn't make sense. These would likely be dropped unless a reasonable explanation can be found for them.
+
+
+```python
+# Calculate mean tips by passenger_count
+mean_tips_by_passenger_count = df.groupby('passenger_count')['tip_amount'].mean()
+mean_tips_by_passenger_count
+```
+
+
+
+
+    passenger_count
+    0    2.135758
+    1    1.848920
+    2    1.856378
+    3    1.716768
+    4    1.530264
+    5    1.873185
+    6    1.720260
+    Name: tip_amount, dtype: float64
+
+
+
+
+```python
+# Create bar plot for mean tips by passenger count
+data = mean_tips_by_passenger_count[1:]
+pal = sns.color_palette("Greens_d", len(data))
+rank = data.argsort().argsort()
+plt.figure(figsize=(12,7))
+ax = sns.barplot(x=data.index,
+            y=data.values,
+            palette=np.array(pal[::-1])[rank])
+ax.axhline(df['tip_amount'].mean(), ls='--', color='red', label='global mean')
+ax.legend()
+plt.title('Mean tip amount by passenger count', fontsize=16);
+```
+
+
+    
+![png](output_52_0.png)
+    
+
+
+The bar chart shows the mean tip amount by passenger count, with most categories hovering around the global mean (indicated by the red dashed line). Passenger counts of 1, 2, 5, and 6 have mean tip amounts slightly above the global mean, while counts of 3 and 4 fall below it, with 4 having the lowest mean tip amount.
+
+**Create month and day columns**
+
+
+```python
+# Create a month column
+df['month'] = df['tpep_pickup_datetime'].dt.month_name()
+
+# Create a day column
+df['day'] = df['tpep_pickup_datetime'].dt.day_name()
+```
+
+**ride count by month**
+
+
+```python
+# Get total number of rides for each month
+monthly_rides = df['month'].value_counts()
+monthly_rides
+```
+
+
+
+
+    month
+    March        2049
+    October      2027
+    April        2019
+    May          2013
+    January      1997
+    June         1964
+    December     1863
+    November     1843
+    February     1769
+    September    1734
+    August       1724
+    July         1697
+    Name: count, dtype: int64
+
+
+
+
+```python
+# Reorder the monthly ride list so months go in order
+month_order = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
+         'August', 'September', 'October', 'November', 'December']
+
+monthly_rides = monthly_rides.reindex(index=month_order)
+monthly_rides
+```
+
+
+
+
+    month
+    January      1997
+    February     1769
+    March        2049
+    April        2019
+    May          2013
+    June         1964
+    July         1697
+    August       1724
+    September    1734
+    October      2027
+    November     1843
+    December     1863
+    Name: count, dtype: int64
+
+
+
+
+```python
+# Create a bar plot of total rides per month
+plt.figure(figsize=(12,7))
+ax = sns.barplot(x=monthly_rides.index, y=monthly_rides)
+ax.set_xticklabels(month_order)
+plt.title('Ride count by month', fontsize=16);
+```
+
+
+    
+![png](output_59_0.png)
+    
+
+
+* The bar chart shows that ride counts remain relatively consistent throughout the year, with a slight dip in February and in summer months of July, August and September with a notable increase in October. The other months maintain a steady count close to 2000 rides, indicating fairly stable demand with minor seasonal fluctuations.
+
+**ride count by day**
+
+
+```python
+# Repeat the above process, this time for rides by day
+daily_rides = df['day'].value_counts()
+day_order = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+daily_rides = daily_rides.reindex(index=day_order)
+daily_rides
+```
+
+
+
+
+    day
+    Monday       2931
+    Tuesday      3198
+    Wednesday    3390
+    Thursday     3402
+    Friday       3413
+    Saturday     3367
+    Sunday       2998
+    Name: count, dtype: int64
+
+
+
+
+```python
+# Create bar plot for ride count by day
+plt.figure(figsize=(12,7))
+ax = sns.barplot(x=daily_rides.index, y=daily_rides)
+ax.set_xticklabels(day_order)
+ax.set_ylabel('Count')
+plt.title('Ride count by day', fontsize=16);
+```
+
+
+    
+![png](output_63_0.png)
+    
+
+
+* The bar chart indicates that ride counts are relatively consistent across the weekdays, with a slight increase on Wednesdays to Fridays. Ride counts peak on these days, while Sundays see a noticeable drop in activity, making it the least busy day of the week.
+
+**total revenue by day of the week**
+
+
+```python
+# Repeat the process, this time for total revenue by day
+day_order = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+total_amount_day = df.groupby('day')['total_amount'].sum()
+total_amount_day = total_amount_day.reindex(index=day_order)
+total_amount_day
+```
+
+
+
+
+    day
+    Monday       49574.37
+    Tuesday      52527.14
+    Wednesday    55310.47
+    Thursday     57181.91
+    Friday       55818.74
+    Saturday     51195.40
+    Sunday       48624.06
+    Name: total_amount, dtype: float64
+
+
+
+
+```python
+# Create bar plot of total revenue by day
+plt.figure(figsize=(12,7))
+ax = sns.barplot(x=total_amount_day.index, y=total_amount_day.values)
+ax.set_xticklabels(day_order)
+ax.set_ylabel('Revenue (USD)')
+plt.title('Total revenue by day', fontsize=16);
+```
+
+
+    
+![png](output_67_0.png)
+    
+
+
+* The bar chart shows that total revenue is fairly consistent across the weekdays, with a slight peak on Thursdays and a dip on Sundays. Fridays and Saturdays also generate relatively high revenue, while Mondays generate the least amount of revenue during the week, though the difference is not very pronounced.
+
+**total revenue by month**
+
+
+```python
+# Repeat the process, this time for total revenue by month
+total_amount_month = df.groupby('month')['total_amount'].sum()
+total_amount_month = total_amount_month.reindex(index=month_order)
+total_amount_month
+```
+
+
+
+
+    month
+    January      31735.25
+    February     28937.89
+    March        33085.89
+    April        32012.54
+    May          33828.58
+    June         32920.52
+    July         26617.64
+    August       27759.56
+    September    28206.38
+    October      33065.83
+    November     30800.44
+    December     31261.57
+    Name: total_amount, dtype: float64
+
+
+
+
+```python
+# Create a bar plot of total revenue by month
+plt.figure(figsize=(12,7))
+ax = sns.barplot(x=total_amount_month.index, y=total_amount_month.values)
+plt.title('Total revenue by month', fontsize=16);
+```
+
+
+    
+![png](output_71_0.png)
+    
+
+
+* The bar chart indicates that total revenue by month is relatively stable throughout the year, with a noticeable dip in February and another smaller decrease in July. Revenue peaks in May and October, suggesting these months have higher activity or spending, while the other months maintain a consistent level of revenue around $30,000 to $35,000.
+
+**mean trip distance by drop-off location**
+
+
+```python
+# Get number of unique drop-off location IDs
+df['DOLocationID'].nunique()
+```
+
+
+
+
+    216
+
+
+
+
+```python
+# Calculate the mean trip distance for each drop-off location
+distance_by_dropoff = df.groupby('DOLocationID')['trip_distance'].mean().reset_index()
+
+# Sort the results in descending order by mean trip distance
+distance_by_dropoff = distance_by_dropoff.sort_values(by='trip_distance')
+distance_by_dropoff 
+```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>DOLocationID</th>
+      <th>trip_distance</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>164</th>
+      <td>207</td>
+      <td>1.200000</td>
+    </tr>
+    <tr>
+      <th>154</th>
+      <td>193</td>
+      <td>1.390556</td>
+    </tr>
+    <tr>
+      <th>192</th>
+      <td>237</td>
+      <td>1.555494</td>
+    </tr>
+    <tr>
+      <th>189</th>
+      <td>234</td>
+      <td>1.727806</td>
+    </tr>
+    <tr>
+      <th>109</th>
+      <td>137</td>
+      <td>1.818852</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>40</th>
+      <td>51</td>
+      <td>17.310000</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>11</td>
+      <td>17.945000</td>
+    </tr>
+    <tr>
+      <th>167</th>
+      <td>210</td>
+      <td>20.500000</td>
+    </tr>
+    <tr>
+      <th>21</th>
+      <td>29</td>
+      <td>21.650000</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>23</td>
+      <td>24.275000</td>
+    </tr>
+  </tbody>
+</table>
+<p>216 rows × 2 columns</p>
+</div>
+
+
+
+
+```python
+# Create a bar plot of mean trip distances by drop-off location in ascending order by distance
+plt.figure(figsize=(14,6))
+ax = sns.barplot(x=distance_by_dropoff.index, 
+                 y=distance_by_dropoff['trip_distance'],
+                 order=distance_by_dropoff.index)
+ax.set_xticklabels([])
+ax.set_xticks([])
+ax.set_xlabel('Drop-off locations')
+plt.title('Mean trip distance by drop-off location', fontsize=16);
+```
+
+
+    
+![png](output_76_0.png)
+    
+
+
+* The bar chart shows the mean trip distance for various drop-off locations, arranged in ascending order. The majority of drop-off locations have mean trip distances below 10 miles, with a gradual increase as you move across locations. A few locations on the right side of the chart exhibit significantly higher mean trip distances, reaching up to around 25 miles, indicating that these are likely farther or more remote destinations.
+
+
+```python
+# 1. Generate random points on a 2D plane from a normal distribution
+test = np.round(np.random.normal(10, 5, (3000, 2)), 1)
+midway = int(len(test)/2)  # Calculate midpoint of the array of coordinates
+start = test[:midway]      # Isolate first half of array ("pick-up locations")
+end = test[midway:]        # Isolate second half of array ("drop-off locations")
+
+# 2. Calculate Euclidean distances between points in first half and second half of array
+distances = (start - end)**2           
+distances = distances.sum(axis=-1)
+distances = np.sqrt(distances)
+
+# 3. Group the coordinates by "drop-off location", compute mean distance
+test_df = pd.DataFrame({'start': [tuple(x) for x in start.tolist()],
+                   'end': [tuple(x) for x in end.tolist()],
+                   'distance': distances})
+data = test_df[['end', 'distance']].groupby('end').mean().reset_index(drop=True)
+data = data.sort_values(by='distance')
+
+# 4. Plot the mean distance between each endpoint ("drop-off location") and all points it connected to
+plt.figure(figsize=(14,6))
+ax = sns.barplot(x=data.index,
+                 y=data['distance'],
+                 order=data.index)
+ax.set_xticklabels([])
+ax.set_xticks([])
+ax.set_xlabel('Endpoint')
+ax.set_ylabel('Mean distance to all other points')
+ax.set_title('Mean distance between points taken randomly from normal distribution');
+```
+
+
+    
+![png](output_78_0.png)
+    
+
+
+* The bar chart displays the mean distance between points randomly sampled from a normal distribution, sorted in ascending order. The pattern shows a gradual increase in mean distance as you move from left to right, with the distances starting from near zero and extending to around 30 units. This suggests that while most points are relatively close to each other, a small number of points have significantly greater mean distances, indicating a spread or variation in the distribution of these points.
+
+**Histogram of rides by drop-off location**
+
+
+```python
+# Check if all drop-off locations are consecutively numbered
+df['DOLocationID'].max() - len(set(df['DOLocationID'])) 
+```
+
+
+
+
+    49
+
+
+
+There are 49 numbers that do not represent a drop-off location. 
+
+
+```python
+plt.figure(figsize=(16,4))
+# DOLocationID column is numeric, so sort in ascending order
+sorted_dropoffs = df['DOLocationID'].sort_values()
+# Convert to string
+sorted_dropoffs = sorted_dropoffs.astype('str')
+# Plot
+sns.histplot(sorted_dropoffs, bins=range(0, df['DOLocationID'].max()+1, 1))
+plt.xticks([])
+plt.xlabel('Drop-off locations')
+plt.title('Histogram of rides by drop-off location', fontsize=16);
+```
+
+
+    
+![png](output_83_0.png)
+    
+
+
+* The histogram shows the distribution of ride counts across 200+ drop-off locations. The distribution is highly uneven, with certain locations having significantly higher ride counts, peaking at over 800 rides, while many other locations have far fewer rides, with some barely registering any. This indicates that a few popular drop-off points dominate the dataset, while most other locations see much less activity.
