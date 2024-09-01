@@ -1797,3 +1797,19 @@ You are a data professional in a data consulting firm, called Automatidata. The 
 You receive a new email from Uli King, Automatidata’s project manager. Uli tells your team about a new request from the New York City TLC: to analyze the relationship between fare amount and payment type. You also discover follow-up emails from three other team members: Deshawn Washington, Luana Rodriguez, and Udo Bankole. These emails discuss the details of the analysis. A final email from Luana includes your specific assignment: to conduct an A/B test.
 
 **The goal** is to apply descriptive statistics and hypothesis testing in Python. The goal for this A/B test is to sample data and analyze whether there is a relationship between payment type and fare amount. For example: discover if customers who use credit cards pay higher fare amounts than customers who use cash.
+
+**Part 1:** Imports and data loading
+* What data packages will be necessary for hypothesis testing?
+
+**Part 2:** Conduct EDA and hypothesis testing
+* How did computing descriptive statistics help you analyze your data? 
+
+* How did you formulate your null hypothesis and alternative hypothesis? 
+
+**Part 3:** Communicate insights with stakeholders
+
+* What key business insight(s) emerged from your A/B test?
+
+* What business recommendations do you propose based on your results?
+
+<br/> 
