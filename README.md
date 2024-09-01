@@ -1813,3 +1813,323 @@ You receive a new email from Uli King, Automatidata’s project manager. Uli tel
 * What business recommendations do you propose based on your results?
 
 <br/> 
+
+# **Conduct an A/B test**
+
+The research question for this data project: “Is there a relationship between total fare amount and payment type?”
+
+
+```python
+from scipy import stats
+```
+
+
+```python
+taxi_data = pd.read_csv("2017_Yellow_Taxi_Trip_Data.csv", index_col = 0)
+```
+
+In general, descriptive statistics are useful because they let you quickly explore and understand large amounts of data. In this case, computing descriptive statistics can help quickly compare the average total fare amount among different payment types.
+
+
+**Note:** In the dataset, `payment_type` is encoded in integers:
+*   1: Credit card
+*   2: Cash
+*   3: No charge
+*   4: Dispute
+*   5: Unknown
+
+
+
+
+```python
+# descriptive stats code for EDA
+taxi_data.describe(include='all')
+```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>VendorID</th>
+      <th>tpep_pickup_datetime</th>
+      <th>tpep_dropoff_datetime</th>
+      <th>passenger_count</th>
+      <th>trip_distance</th>
+      <th>RatecodeID</th>
+      <th>store_and_fwd_flag</th>
+      <th>PULocationID</th>
+      <th>DOLocationID</th>
+      <th>payment_type</th>
+      <th>fare_amount</th>
+      <th>extra</th>
+      <th>mta_tax</th>
+      <th>tip_amount</th>
+      <th>tolls_amount</th>
+      <th>improvement_surcharge</th>
+      <th>total_amount</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>count</th>
+      <td>22699.000000</td>
+      <td>22699</td>
+      <td>22699</td>
+      <td>22699.000000</td>
+      <td>22699.000000</td>
+      <td>22699.000000</td>
+      <td>22699</td>
+      <td>22699.000000</td>
+      <td>22699.000000</td>
+      <td>22699.000000</td>
+      <td>22699.000000</td>
+      <td>22699.000000</td>
+      <td>22699.000000</td>
+      <td>22699.000000</td>
+      <td>22699.000000</td>
+      <td>22699.000000</td>
+      <td>22699.000000</td>
+    </tr>
+    <tr>
+      <th>unique</th>
+      <td>NaN</td>
+      <td>22687</td>
+      <td>22688</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>2</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>top</th>
+      <td>NaN</td>
+      <td>07/03/2017 3:45:19 PM</td>
+      <td>10/18/2017 8:07:45 PM</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>N</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>freq</th>
+      <td>NaN</td>
+      <td>2</td>
+      <td>2</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>22600</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>mean</th>
+      <td>1.556236</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>1.642319</td>
+      <td>2.913313</td>
+      <td>1.043394</td>
+      <td>NaN</td>
+      <td>162.412353</td>
+      <td>161.527997</td>
+      <td>1.336887</td>
+      <td>13.026629</td>
+      <td>0.333275</td>
+      <td>0.497445</td>
+      <td>1.835781</td>
+      <td>0.312542</td>
+      <td>0.299551</td>
+      <td>16.310502</td>
+    </tr>
+    <tr>
+      <th>std</th>
+      <td>0.496838</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>1.285231</td>
+      <td>3.653171</td>
+      <td>0.708391</td>
+      <td>NaN</td>
+      <td>66.633373</td>
+      <td>70.139691</td>
+      <td>0.496211</td>
+      <td>13.243791</td>
+      <td>0.463097</td>
+      <td>0.039465</td>
+      <td>2.800626</td>
+      <td>1.399212</td>
+      <td>0.015673</td>
+      <td>16.097295</td>
+    </tr>
+    <tr>
+      <th>min</th>
+      <td>1.000000</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>1.000000</td>
+      <td>NaN</td>
+      <td>1.000000</td>
+      <td>1.000000</td>
+      <td>1.000000</td>
+      <td>-120.000000</td>
+      <td>-1.000000</td>
+      <td>-0.500000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>-0.300000</td>
+      <td>-120.300000</td>
+    </tr>
+    <tr>
+      <th>25%</th>
+      <td>1.000000</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>1.000000</td>
+      <td>0.990000</td>
+      <td>1.000000</td>
+      <td>NaN</td>
+      <td>114.000000</td>
+      <td>112.000000</td>
+      <td>1.000000</td>
+      <td>6.500000</td>
+      <td>0.000000</td>
+      <td>0.500000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.300000</td>
+      <td>8.750000</td>
+    </tr>
+    <tr>
+      <th>50%</th>
+      <td>2.000000</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>1.000000</td>
+      <td>1.610000</td>
+      <td>1.000000</td>
+      <td>NaN</td>
+      <td>162.000000</td>
+      <td>162.000000</td>
+      <td>1.000000</td>
+      <td>9.500000</td>
+      <td>0.000000</td>
+      <td>0.500000</td>
+      <td>1.350000</td>
+      <td>0.000000</td>
+      <td>0.300000</td>
+      <td>11.800000</td>
+    </tr>
+    <tr>
+      <th>75%</th>
+      <td>2.000000</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>2.000000</td>
+      <td>3.060000</td>
+      <td>1.000000</td>
+      <td>NaN</td>
+      <td>233.000000</td>
+      <td>233.000000</td>
+      <td>2.000000</td>
+      <td>14.500000</td>
+      <td>0.500000</td>
+      <td>0.500000</td>
+      <td>2.450000</td>
+      <td>0.000000</td>
+      <td>0.300000</td>
+      <td>17.800000</td>
+    </tr>
+    <tr>
+      <th>max</th>
+      <td>2.000000</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>6.000000</td>
+      <td>33.960000</td>
+      <td>99.000000</td>
+      <td>NaN</td>
+      <td>265.000000</td>
+      <td>265.000000</td>
+      <td>4.000000</td>
+      <td>999.990000</td>
+      <td>4.500000</td>
+      <td>0.500000</td>
+      <td>200.000000</td>
+      <td>19.100000</td>
+      <td>0.300000</td>
+      <td>1200.290000</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+You are interested in the relationship between payment type and the fare amount the customer pays. One approach is to look at the average fare amount for each payment type. 
+
+
+```python
+taxi_data.groupby('payment_type')['fare_amount'].mean()
+```
+
+
+
+
+    payment_type
+    1    13.429748
+    2    12.213546
+    3    12.186116
+    4     9.913043
+    Name: fare_amount, dtype: float64
+
+
+
+Based on the averages shown, it appears that customers who pay in credit card tend to pay a larger fare amount than customers who pay in cash. However, this difference might arise from random sampling, rather than being a true difference in fare amount. To assess whether the difference is statistically significant, let's conduct a hypothesis test.
