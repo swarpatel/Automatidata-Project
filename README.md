@@ -1789,3 +1789,11 @@ plt.title('Histogram of rides by drop-off location', fontsize=16);
 
 
 * The histogram shows the distribution of ride counts across 200+ drop-off locations. The distribution is highly uneven, with certain locations having significantly higher ride counts, peaking at over 800 rides, while many other locations have far fewer rides, with some barely registering any. This indicates that a few popular drop-off points dominate the dataset, while most other locations see much less activity.
+
+### Case Study
+
+You are a data professional in a data consulting firm, called Automatidata. The current project for their newest client, the New York City Taxi & Limousine Commission (New York City TLC) is reaching its midpoint, having completed a project proposal, Python coding work, and exploratory data analysis.
+
+You receive a new email from Uli King, Automatidata’s project manager. Uli tells your team about a new request from the New York City TLC: to analyze the relationship between fare amount and payment type. You also discover follow-up emails from three other team members: Deshawn Washington, Luana Rodriguez, and Udo Bankole. These emails discuss the details of the analysis. A final email from Luana includes your specific assignment: to conduct an A/B test.
+
+**The goal** is to apply descriptive statistics and hypothesis testing in Python. The goal for this A/B test is to sample data and analyze whether there is a relationship between payment type and fare amount. For example: discover if customers who use credit cards pay higher fare amounts than customers who use cash.
