@@ -2133,3 +2133,54 @@ taxi_data.groupby('payment_type')['fare_amount'].mean()
 
 
 Based on the averages shown, it appears that customers who pay in credit card tend to pay a larger fare amount than customers who pay in cash. However, this difference might arise from random sampling, rather than being a true difference in fare amount. To assess whether the difference is statistically significant, let's conduct a hypothesis test.
+
+### Hypothesis testing
+
+
+**Null hypothesis**: There is no difference in average fare between customers who use credit cards and customers who use cash. </br>
+**Alternative hypothesis**: There is a difference in average fare between customers who use credit cards and customers who use cash
+
+
+
+Your goal in this step is to conduct a two-sample t-test. Recall the steps for conducting a hypothesis test: 
+
+
+1.   State the null hypothesis and the alternative hypothesis
+2.   Choose a signficance level
+3.   Find the p-value
+4.   Reject or fail to reject the null hypothesis 
+
+
+
+$H_0$: There is no difference in the average fare amount between customers who use credit cards and customers who use cash.
+
+$H_A$: There is a difference in the average fare amount between customers who use credit cards and customers who use cash.
+
+`Significance level` : 5%
+
+
+```python
+#hypothesis test, A/B test
+#significance level
+
+credit_card = taxi_data[taxi_data['payment_type'] == 1]['fare_amount']
+cash = taxi_data[taxi_data['payment_type'] == 2]['fare_amount']
+stats.ttest_ind(a=credit_card, b=cash, equal_var=False)
+```
+
+
+
+
+    TtestResult(statistic=6.866800855655372, pvalue=6.797387473030518e-12, df=16675.48547403633)
+
+
+
+Since the p-value is significantly smaller than the significance level of 5%, we reject the null hypothesis. (Notice the 'e-12' at the end of the pvalue result.)
+
+
+
+You conclude that there is a statistically significant difference in the average fare amount between customers who use credit cards and customers who use cash.
+
+1.   The key business insight is that encouraging customers to pay with credit cards can generate more revenue for taxi cab drivers. 
+
+2.   This project requires an assumption that passengers were forced to pay one way or the other, and that once informed of this requirement, they always complied with it. The data was not collected this way; so, an assumption had to be made to randomly group data entries to perform an A/B test. This dataset does not account for other likely explanations. For example, riders might not carry lots of cash, so it's easier to pay for longer/farther trips with a credit card. In other words, it's far more likely that fare amount determines payment type, rather than vice versa. 
